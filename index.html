@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bubble Cakery | Premium Pastries</title>
+    <!-- Google Fonts for Premium Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- CSS VARIABLES & RESET --- */
+        :root {
+            --bg-color: #F9F7F2; /* Creamy Off-White */
+            --text-color: #2C2C2C; /* Soft Charcoal */
+            --accent-color: #C5A059; /* Muted Gold */
+            --secondary-bg: #EBE5DE; /* Light Taupe */
+            --white: #FFFFFF;
+            
+            --font-heading: 'Cormorant Garamond', serif;
+            --font-body: 'Montserrat', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: var(--font-body);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        a { text-decoration: none; color: inherit; transition: 0.3s; }
+        ul { list-style: none; }
+        img { max-width: 100%; display: block; }
+
+        /* --- NAVIGATION --- */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 2rem 5%;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            background-color: rgba(249, 247, 242, 0.95);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .logo {
+            font-family: var(--font-heading);
+            font-size: 2rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 3rem;
+        }
+
+        .nav-links a {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 1px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--accent-color);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .cart-icon {
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            height: 90vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.1)), url('https://images.unsplash.com/photo-1578985545062-69928b1d9587?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            margin-top: 80px;
+        }
+
+        .hero-content {
+            background-color: rgba(255, 255, 255, 0.85);
+            padding: 4rem;
+            max-width: 600px;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255,255,255,0.5);
+        }
+
+        .hero h1 {
+            font-family: var(--font-heading);
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            color: var(--text-color);
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            color: #555;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background-color: var(--text-color);
+            color: var(--white);
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            border: 1px solid var(--text-color);
+        }
+
+        .btn:hover {
+            background-color: transparent;
+            color: var(--text-color);
+        }
+
+        /* --- SECTION STYLES --- */
+        .section-title {
+            text-align: center;
+            margin: 5rem 0 3rem;
+        }
+
+        .section-title h2 {
+            font-family: var(--font-heading);
+            font-size: 3rem;
+            font-weight: 400;
+            margin-bottom: 0.5rem;
+        }
+
+        .section-title span {
+            display: block;
+            width: 50px;
+            height: 2px;
+            background-color: var(--accent-color);
+            margin: 0 auto;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* --- PRODUCT GRID --- */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 5rem;
+        }
+
+        .product-card {
+            background: var(--white);
+            padding: 1rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+            border: 1px solid transparent;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+            border-color: var(--secondary-bg);
+        }
+
+        .product-image {
+            height: 250px;
+            width: 100%;
+            object-fit: cover;
+            margin-bottom: 1rem;
+            background-color: #eee; /* Placeholder color */
+        }
+
+        .product-info h3 {
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .product-info p {
+            font-size: 0.9rem;
+            color: #777;
+            margin-bottom: 1rem;
+        }
+
+        .price {
+            font-weight: 500;
+            color: var(--accent-color);
+            font-size: 1.1rem;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            background-color: var(--text-color);
+            color: var(--bg-color);
+            padding: 4rem 5%;
+            text-align: center;
+        }
+
+        .footer-logo {
+            font-family: var(--font-heading);
+            font-size: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-links a {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        .footer-links a:hover {
+            opacity: 1;
+            color: var(--accent-color);
+        }
+
+        .copyright {
+            font-size: 0.8rem;
+            opacity: 0.5;
+        }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            .nav-links { display: none; } /* Simplified for demo */
+            .product-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 480px) {
+            .product-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="logo">Bubble Cakery</div>
+        <div class="nav-links">
+            <a href="#signature">Signature Cakes</a>
+            <a href="#delights">Other Delights</a>
+            <a href="#about">Our Story</a>
+            <a href="#contact">Contact</a>
+        </div>
+        <div class="cart-icon">Cart (0)</div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Artistry in Every Slice</h1>
+            <p>Experience the perfect blend of premium ingredients and minimalist elegance.</p>
+            <a href="#signature" class="btn">View Menu</a>
+        </div>
+    </section>
+
+    <!-- Signature Cakes Section (10 Slots) -->
+    <div class="container" id="signature">
+        <div class="section-title">
+            <h2>Signature Cakes</h2>
+            <span></span>
+        </div>
+        
+        <div class="product-grid" id="signature-grid">
+            <!-- Javascript will populate this -->
+        </div>
+    </div>
+
+    <!-- Other Delights Section (7-10 Slots) -->
+    <div class="container" id="delights">
+        <div class="section-title">
+            <h2>Other Delights</h2>
+            <span></span>
+        </div>
+
+        <div class="product-grid" id="delights-grid">
+            <!-- Javascript will populate this -->
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-logo">BUBBLE CAKERY</div>
+        <div class="footer-links">
+            <a href="#">Instagram</a>
+            <a href="#">Facebook</a>
+            <a href="#">Pinterest</a>
+            <a href="#">Terms</a>
+        </div>
+        <p class="copyright">&copy; 2023 Bubble Cakery. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Data for Signature Cakes
+        const signatureCakes = [
+            { name: "Red Velvet", price: "$45.00", img: "https://images.unsplash.com/photo-1586788680434-30d32443f468?auto=format&fit=crop&w=500&q=60" },
+            { name: "Butterscotch", price: "$42.00", img: "https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?auto=format&fit=crop&w=500&q=60" },
+            { name: "Dark Chocolate", price: "$48.00", img: "https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=500&q=60" },
+            { name: "Lemon Drizzle", price: "$38.00", img: "https://images.unsplash.com/photo-1519340333755-56e9c1d04579?auto=format&fit=crop&w=500&q=60" },
+            { name: "Vanilla Bean", price: "$40.00", img: "https://images.unsplash.com/photo-1562777717-dc6984f65392?auto=format&fit=crop&w=500&q=60" },
+            { name: "Salted Caramel", price: "$44.00", img: "https://images.unsplash.com/photo-1557308536-ee471ef2c39a?auto=format&fit=crop&w=500&q=60" },
+            { name: "Matcha Green Tea", price: "$46.00", img: "https://images.unsplash.com/photo-1558961363-fa8fdf82db35?auto=format&fit=crop&w=500&q=60" },
+            { name: "Black Forest", price: "$50.00", img: "https://images.unsplash.com/photo-1571115177098-24ec42ed204d?auto=format&fit=crop&w=500&q=60" },
+            { name: "Carrot Cake", price: "$42.00", img: "https://images.unsplash.com/photo-1621303837174-89787a7d4729?auto=format&fit=crop&w=500&q=60" },
+            { name: "Tiramisu", price: "$45.00", img: "https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?auto=format&fit=crop&w=500&q=60" }
+        ];
+
+        // Data for Other Delights
+        const otherDelights = [
+            { name: "Macarons (Box of 6)", price: "$18.00", img: "https://images.unsplash.com/photo-1569864358642-9d1684040f43?auto=format&fit=crop&w=500&q=60" },
+            { name: "Cheesecake Slice", price: "$8.50", img: "https://images.unsplash.com/photo-1533134242443-d4fd215305ad?auto=format&fit=crop&w=500&q=60" },
+            { name: "Chocolate Truffles", price: "$22.00", img: "https://images.unsplash.com/photo-1548848221-0c2e497ed557?auto=format&fit=crop&w=500&q
